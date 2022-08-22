@@ -1,4 +1,4 @@
-# Kubikobot Helm Charts for Kubernetes
+# KubikoBot Helm Charts for Kubernetes
 
 This repository holds the index file for [the Kubikobot Helm Repository](https://kubikobot.github.io), served using
 [GitHub pages](https://pages.github.com/). The index file serves to hold the list of available helm charts distributed or configured
@@ -7,7 +7,7 @@ file from the [official documentation](https://helm.sh/docs/developing_charts/#t
 
 ## How do you install the charts in this Repo?
 
-You can access these charts by adding the Gruntwork Helm Repo to your client:
+You can access these charts by adding the Kubikobot Helm Repo to your client:
 
 ```bash
 $ helm repo add kubikobot https://kubikobot.github.io
