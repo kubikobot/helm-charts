@@ -1,0 +1,17 @@
+apiVersion: v2
+name: common
+description: Function library for Helm charts
+type: library
+version: 0.1.0
+kubeVersion: ">=1.23"
+keywords:
+  - common
+  - library
+home: https://github.com/kubikobot/helm-charts/tree/main/charts/library/common
+maintainers:
+  - name: kubikobot
+    email: me@kubiko.dev
+annotations:
+  artifacthub.io/changes: |-
+    - kind: changed
+      description: Initial version
