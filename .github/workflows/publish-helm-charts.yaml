@@ -28,12 +28,48 @@ jobs:
         run: |
           helm repo index docs --url https://kubikobot.github.io/helm-charts
 
+      - name: Generate README.md with dynamic chart list
+        run: |
+          echo "# Helm Charts Repository" > docs/README.md
+          echo "" >> docs/README.md
+          echo "Welcome to the Helm Charts repository. This repository hosts Helm charts for various applications. You can add this repository to your Helm configuration with:" >> docs/README.md
+          echo "" >> docs/README.md
+          echo '```bash' >> docs/README.md
+          echo "helm repo add my-repo https://<username>.github.io/helm-charts" >> docs/README.md
+          echo "helm repo update" >> docs/README.md
+          echo '```' >> docs/README.md
+          echo "" >> docs/README.md
+          echo "## Available Charts" >> docs/README.md
+          echo "" >> docs/README.md
+
+          # Loop through each chart in the docs directory
+          for chart_tgz in docs/*.tgz; do
+            chart_name=$(basename "$chart_tgz" .tgz)
+            chart_version=$(helm show chart "$chart_tgz" | grep version | awk '{print $2}')
+            chart_description=$(helm show chart "$chart_tgz" | grep description | cut -d ' ' -f 2-)
+
+            # Add chart details to README
+            echo "- **$chart_name** (version $chart_version)" >> docs/README.md
+            echo "  - Description: $chart_description" >> docs/README.md
+            echo "  - Install: \`helm install <release-name> my-repo/$chart_name --version $chart_version\`" >> docs/README.md
+            echo "" >> docs/README.md
+          done
+
+          # Add usage instructions
+          echo "## Usage Instructions" >> docs/README.md
+          echo "To install a chart, use the following command:" >> docs/README.md
+          echo "" >> docs/README.md
+          echo '```bash' >> docs/README.md
+          echo "helm install <release-name> my-repo/<chart-name> --version <version>" >> docs/README.md
+          echo '```' >> docs/README.md
+
       - name: Commit and push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
+
+          # Add files to the commit and push if there are any changes
           git add docs/
-          git commit -m "Update Helm chart repository" || echo "No changes to commit"
-          git push
+          git diff --quiet && echo "No changes to commit" || (git commit -m "Update Helm chart repository and README" && git push)
