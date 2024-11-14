@@ -3,7 +3,17 @@ entries:
   top-funny-news:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-11-12T15:45:19.165517195Z"
+    created: "2024-11-14T13:23:20.442710349Z"
+    description: A Helm chart for Kubernetes
+    digest: 539fb79fc59525e16a314d4daf6685556f28105938f9cc52391346c987916d5a
+    name: top-funny-news
+    type: application
+    urls:
+    - https://kubikobot.github.io/helm-charts/top-funny-news-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-11-14T13:23:20.44232035Z"
     description: A Helm chart for Kubernetes
     digest: 1c3dd2a61a018f2326739d61799242489fefcfaad3b7858eeb2535fb400897de
     name: top-funny-news
@@ -11,4 +21,4 @@ entries:
     urls:
     - https://kubikobot.github.io/helm-charts/top-funny-news-0.1.0.tgz
     version: 0.1.0
-generated: "2024-11-12T15:45:19.164968609Z"
+generated: "2024-11-14T13:23:20.441753279Z"
