@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'charts/**'  # Only trigger when there are changes in the charts folder
+    # paths:
+    #   - 'charts/**'  # Only trigger when there are changes in the charts folder
 
 jobs:
   build:
