@@ -42,7 +42,7 @@ jobs:
           echo "changed_charts=$(IFS=, ; echo "${changed_charts[*]}")" >> $GITHUB_ENV
 
       - name: Package updated Helm charts
-        if: env.changed_charts != ""
+        if: ${{ env.changed_charts != '' }}
         run: |
           # Create docs directory if it doesn't exist
           mkdir -p docs
@@ -53,11 +53,12 @@ jobs:
           done
 
       - name: Update Helm repository index
-        if: env.changed_charts != ""
+        if: ${{ env.changed_charts != '' }}
         run: |
           helm repo index docs --url https://kubikobot.github.io/helm-charts
 
       - name: Generate README.md with dynamic chart list
+        if: ${{ env.changed_charts != '' }}
         run: |
           echo "# Helm Charts Repository" > docs/README.md
           echo "" >> docs/README.md
@@ -93,6 +94,7 @@ jobs:
           echo '```' >> docs/README.md
 
       - name: Commit and push changes
+        if: ${{ env.changed_charts != '' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
