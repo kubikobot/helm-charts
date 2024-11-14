@@ -38,6 +38,9 @@ jobs:
           # Output changed charts as a comma-separated string for use in the next steps
           echo "changed_charts=$(IFS=, ; echo "${changed_charts[*]}")" >> $GITHUB_ENV
 
+          # Output changed charts as a comma-separated string for use in the next steps
+          echo "changed_charts=$(IFS=, ; echo "${changed_charts[*]}")" >> $GITHUB_ENV
+
       - name: Package updated Helm charts
         if: env.changed_charts != ""
         run: |
