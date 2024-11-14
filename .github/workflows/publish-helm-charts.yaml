@@ -64,7 +64,7 @@ jobs:
           echo "Welcome to the Helm Charts repository. This repository hosts Helm charts for various applications. You can add this repository to your Helm configuration with:" >> docs/README.md
           echo "" >> docs/README.md
           echo '```bash' >> docs/README.md
-          echo "helm repo add my-repo https://<username>.github.io/helm-charts" >> docs/README.md
+          echo "helm repo add kubikobot https://kubikobot.github.io/helm-charts" >> docs/README.md
           echo "helm repo update" >> docs/README.md
           echo '```' >> docs/README.md
           echo "" >> docs/README.md
@@ -80,7 +80,7 @@ jobs:
             # Add chart details to README
             echo "- **$chart_name** (version $chart_version)" >> docs/README.md
             echo "  - Description: $chart_description" >> docs/README.md
-            echo "  - Install: \`helm install <release-name> my-repo/$chart_name --version $chart_version\`" >> docs/README.md
+            echo "  - Install: \`helm install <release-name> kubikobot/$chart_name --version $chart_version\`" >> docs/README.md
             echo "" >> docs/README.md
           done
 
@@ -89,7 +89,7 @@ jobs:
           echo "To install a chart, use the following command:" >> docs/README.md
           echo "" >> docs/README.md
           echo '```bash' >> docs/README.md
-          echo "helm install <release-name> my-repo/<chart-name> --version <version>" >> docs/README.md
+          echo "helm install <release-name> kubikobot/<chart-name> --version <version>" >> docs/README.md
           echo '```' >> docs/README.md
 
       - name: Commit and push changes
