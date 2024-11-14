@@ -15,16 +15,42 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Package Helm charts
+      - name: Detect changed charts and update versions
+        id: detect-changes
         run: |
-          mkdir -p docs
+          # Initialize an array to store changed charts
+          changed_charts=()
+
+          # Check for changes in each chart directory
           for chart_dir in charts/*; do
-            if [ -d "$chart_dir" ]; then
-              helm package "$chart_dir" --destination docs
+            if git diff --name-only HEAD^ HEAD | grep -q "^$chart_dir/"; then
+              echo "Detected changes in $chart_dir"
+              changed_charts+=("$chart_dir")
+
+              # Auto-increment the patch version
+              current_version=$(yq e '.version' "$chart_dir/Chart.yaml")
+              new_version=$(echo $current_version | awk -F. -v OFS=. '{$NF += 1 ; print}')
+              echo "Updating $chart_dir version from $current_version to $new_version"
+              yq e -i ".version = \"$new_version\"" "$chart_dir/Chart.yaml"
             fi
           done
 
+          # Output changed charts as a comma-separated string for use in the next steps
+          echo "changed_charts=$(IFS=, ; echo "${changed_charts[*]}")" >> $GITHUB_ENV
+
+      - name: Package updated Helm charts
+        if: env.changed_charts != ""
+        run: |
+          # Create docs directory if it doesn't exist
+          mkdir -p docs
+          # Package only the changed charts
+          for chart_dir in ${changed_charts//,/ }; do
+            echo "Packaging $chart_dir"
+            helm package "$chart_dir" --destination docs
+          done
+
       - name: Update Helm repository index
+        if: env.changed_charts != ""
         run: |
           helm repo index docs --url https://kubikobot.github.io/helm-charts
 
