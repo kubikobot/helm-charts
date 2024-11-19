@@ -56,7 +56,7 @@ service:
   # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
   type: ClusterIP
   # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
-  port: 3000
+  port: 8080
 
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
@@ -74,6 +74,21 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+
+
+virtualService:
+  enabled: true  # Enable or disable the VirtualService resource
+  name: top-funny-news
+  gateway: istio-system/kubikobot-wildcard-gateway
+  hosts:
+    - news.kubikobot.com
+  match:
+    authority: news.kubikobot.com
+    uri: /
+  destination:
+    host: top-funny-news
+    port: 8080
+  timeout: 300s
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -100,8 +115,8 @@ readinessProbe:
 # This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
 autoscaling:
   enabled: true
-  minReplicas: 2
-  maxReplicas: 4
+  minReplicas: 1
+  maxReplicas: 2
   targetCPUUtilizationPercentage: 90
   targetMemoryUtilizationPercentage: 90
 
