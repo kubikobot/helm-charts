@@ -101,6 +101,5 @@ jobs:
           git config user.email "actions@github.com"
 
           # Add files to the commit and push if there are any changes
-          git add docs/
-          git add charts/
+          git add .
           git diff --quiet && echo "No changes to commit" || (git commit -m "Update Helm chart repository and README" && git push)
