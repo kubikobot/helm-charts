@@ -102,4 +102,5 @@ jobs:
 
           # Add files to the commit and push if there are any changes
           git add docs/
+          git add charts/
           git diff --quiet && echo "No changes to commit" || (git commit -m "Update Helm chart repository and README" && git push)
