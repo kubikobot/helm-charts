@@ -1,0 +1,24 @@
+# external secrets oprator
+---
+kind: ExternalSecret
+metadata:
+  name: {{ include "top-funny-news.fullname" . }}
+  labels:
+    {{- include "top-funny-news.labels" . | nindent 4 }}
+spec:
+  secretStoreRef:
+    name: vault-cluster-store
+    kind: ClusterSecretStore
+  target:
+    name: {{ .Chart.Name }}
+    creationPolicy: Owner
+    deletionPolicy: Retain
+  data:
+    - secretKey: BASIC_AUTH_USER
+      remoteRef:
+        key: "data/kubikobot"
+        property: "BASIC_AUTH_USER"
+    - secretKey: BASIC_AUTH_PASS
+      remoteRef:
+        key: "data/kubikobot"
+        property: "BASIC_AUTH_PASS"
