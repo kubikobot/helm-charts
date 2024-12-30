@@ -1,5 +1,5 @@
-# external secrets oprator
 ---
+# external secrets oprator
 kind: ExternalSecret
 metadata:
   name: {{ include "top-funny-news.fullname" . }}
