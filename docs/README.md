@@ -33,6 +33,10 @@ helm repo update
   - Description: A Helm chart for Kubernetes
   - Install: `helm install <release-name> kubikobot/top-funny-news-0.1.8 --version 0.1.8`
 
+- **top-funny-news-0.1.9** (version 0.1.9)
+  - Description: A Helm chart for Kubernetes
+  - Install: `helm install <release-name> kubikobot/top-funny-news-0.1.9 --version 0.1.9`
+
 ## Usage Instructions
 To install a chart, use the following command:
 
