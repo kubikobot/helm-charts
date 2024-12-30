@@ -1,3 +1,4 @@
+---
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -27,11 +28,11 @@ spec:
               - name: BASIC_AUTH_USER
                 valueFrom:
                   secretKeyRef:
-                    name: {{ .Values.secretName }}
-                    key: basicAuthUser
+                    name: {{ .Chart.Name }} # Reference the secret created by ExternalSecret
+                    key: BASIC_AUTH_USER
               - name: BASIC_AUTH_PASS
                 valueFrom:
                   secretKeyRef:
-                    name: {{ .Values.secretName }}
-                    key: basicAuthPass
+                    name: {{ .Chart.Name }} # Reference the secret created by ExternalSecret
+                    key: BASIC_AUTH_PASS
           restartPolicy: OnFailure
