@@ -5,7 +5,7 @@ metadata:
   name: {{ include "top-funny-news.fullname" . }}
   namespace: {{ .Values.namespace }}
   labels:
-    {{- include "top-funny-news.labels" . | nindent 8 }}
+    {{- include "top-funny-news.labels" . | nindent 4 }}
 spec:
   schedule: "30 11 * * *" # Cron schedule for 11:30 AM every day
   jobTemplate:
