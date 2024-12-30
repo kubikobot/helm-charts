@@ -51,12 +51,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.secretName }}
-                  key: basicAuthUser
+                  key: BASIC_AUTH_USER
             - name: BASIC_AUTH_PASS
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.secretName }}
-                  key: basicAuthPass
+                  key: BASIC_AUTH_PASS
           {{- with .Values.volumeMounts }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}
