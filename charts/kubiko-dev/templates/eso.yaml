@@ -1,0 +1,26 @@
+---
+# external secrets oprator
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: {{ include "chart.fullname" . }}
+  namespace: {{ .Values.namespace | default "default" }}
+  labels:
+    {{- include "chart.labels" . | nindent 4 }}
+spec:
+  secretStoreRef:
+    name: vault-cluster-store
+    kind: ClusterSecretStore
+  target:
+    name: {{ .Chart.Name }}
+    creationPolicy: Owner
+    deletionPolicy: Retain
+  data:
+    - secretKey: BASIC_AUTH_USER
+      remoteRef:
+        key: "data/kubikodev"
+        property: "BASIC_AUTH_USER"
+    - secretKey: BASIC_AUTH_PASS
+      remoteRef:
+        key: "data/kubikodev"
+        property: "BASIC_AUTH_PASS"

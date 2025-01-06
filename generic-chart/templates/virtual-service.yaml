@@ -1,0 +1,26 @@
+{{- if .Values.virtualService.enabled }}
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ .Values.virtualService.name | default "{{ .Chart.Name }}" }}
+  namespace: {{ .Values.namespace | default "default" }}
+spec:
+  gateways:
+  - {{ .Values.virtualService.gateway | default "istio-system/kubikobot-wildcard-gateway" }}
+  hosts:
+  {{- range .Values.virtualService.hosts }}
+  - {{ . }}
+  {{- end }}
+  http:
+  - match:
+    - authority:
+        prefix: {{ .Values.virtualService.match.authority | default "news.kubikobot.com" }}
+      uri:
+        prefix: {{ .Values.virtualService.match.uri | default "/" }}
+    route:
+    - destination:
+        host: {{ .Values.virtualService.destination.host | default "{{ .Chart.Name }}" }}
+        port:
+          number: {{ .Values.virtualService.destination.port | default 8080 }}
+    timeout: {{ .Values.virtualService.timeout | default "300s" }}
+{{- end }}

@@ -1,0 +1,266 @@
+---
+# Source: kubiko-dev/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  serviceAccountName: kubiko-dev
+  namespace: kubiko-dev
+  labels:
+    helm.sh/chart: kubiko-dev-0.0.1
+    app.kubernetes.io/name: kubiko-dev
+    app.kubernetes.io/instance: kubiko-dev
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/managed-by: Helm
+automountServiceAccountToken: true
+---
+# Source: kubiko-dev/templates/secrets.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kubiko-dev
+  namespace: kubiko-dev
+  labels:
+    helm.sh/chart: kubiko-dev-0.0.1
+    app.kubernetes.io/name: kubiko-dev
+    app.kubernetes.io/instance: kubiko-dev
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+data:
+  basicAuthUser: dXNlcm5hbWU=  # Base64-encoded username
+  basicAuthPass: cGFzc3dvcmQ=  # Base64-encoded password
+---
+# Source: kubiko-dev/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubiko-dev
+  namespace: kubiko-dev
+  labels:
+    helm.sh/chart: kubiko-dev-0.0.1
+    app.kubernetes.io/name: kubiko-dev
+    app.kubernetes.io/instance: kubiko-dev
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: kubiko-dev
+    app.kubernetes.io/instance: kubiko-dev
+---
+# Source: kubiko-dev/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: kubiko-dev
+  name: kubiko-dev
+  labels:
+    helm.sh/chart: kubiko-dev-0.0.1
+    app.kubernetes.io/name: kubiko-dev
+    app.kubernetes.io/instance: kubiko-dev
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kubiko-dev
+      app.kubernetes.io/instance: kubiko-dev
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: kubiko-dev-0.0.1
+        app.kubernetes.io/name: kubiko-dev
+        app.kubernetes.io/instance: kubiko-dev
+        app.kubernetes.io/version: "1.0.0"
+        app.kubernetes.io/managed-by: Helm
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      serviceAccountName: kubiko-dev
+      securityContext:
+        {}
+      containers:
+        - name: kubiko-dev
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 1000
+          image: "ghcr.io/kubikobot/kubiko-dev:v1.0.6"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {}
+          env:
+            - name: BASIC_AUTH_USER
+              valueFrom:
+                secretKeyRef:
+                  name: kubiko-dev
+                  key: BASIC_AUTH_USER
+            - name: BASIC_AUTH_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: kubiko-dev
+                  key: BASIC_AUTH_PASS
+---
+# Source: kubiko-dev/templates/hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: kubiko-dev
+  namespace: kubiko-dev
+  labels:
+    helm.sh/chart: kubiko-dev-0.0.1
+    app.kubernetes.io/name: kubiko-dev
+    app.kubernetes.io/instance: kubiko-dev
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: kubiko-dev
+  minReplicas: 1
+  maxReplicas: 2
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 90
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 90
+---
+# Source: kubiko-dev/templates/cronjob.yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: kubiko-dev
+  namespace: kubiko-dev
+  labels:
+    helm.sh/chart: kubiko-dev-0.0.1
+    app.kubernetes.io/name: kubiko-dev
+    app.kubernetes.io/instance: kubiko-dev
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  schedule: "30 11 * * *" # Cron schedule for 11:30 AM every day
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+        helm.sh/chart: kubiko-dev-0.0.1
+        app.kubernetes.io/name: kubiko-dev
+        app.kubernetes.io/instance: kubiko-dev
+        app.kubernetes.io/version: "1.0.0"
+        app.kubernetes.io/managed-by: Helm
+        spec:
+          containers:
+          - name: kubiko-dev
+            image: curlimages/curl:latest # Use an official curl image
+            imagePullPolicy: IfNotPresent
+            command:
+              - /bin/sh
+              - -c
+              - |
+                curl -u "$BASIC_AUTH_USER:$BASIC_AUTH_PASS" https://kubiko.dev/api/
+            env:
+              - name: BASIC_AUTH_USER
+                valueFrom:
+                  secretKeyRef:
+                    name: kubiko-dev # Reference the secret created by ExternalSecret
+                    key: BASIC_AUTH_USER
+              - name: BASIC_AUTH_PASS
+                valueFrom:
+                  secretKeyRef:
+                    name: kubiko-dev # Reference the secret created by ExternalSecret
+                    key: BASIC_AUTH_PASS
+          restartPolicy: OnFailure
+---
+# Source: kubiko-dev/templates/secrets.yaml
+# apiVersion: v1
+# data:
+#   .dockerconfigjson: ewogICJhdXRocyI6IHsKICAgICJnaGNyLmlvIjogewogICAgICAiYXV0aCI6ICJjbVZrWTI5dE9tZG9jRjlYWnpKTVlqbDVZM2RKWjBWRVZYVlNSREZwUVRaUlMyZDVjR2x6TlhVelMzWXdUWEE9IgogICAgfQogIH0KfQo=
+# kind: Secret
+# metadata:
+#   name: ghcr-secret
+# type: kubernetes.io/dockerconfigjson
+---
+# Source: kubiko-dev/templates/eso.yaml
+# external secrets oprator
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: kubiko-dev
+  namespace: kubiko-dev
+  labels:
+    helm.sh/chart: kubiko-dev-0.0.1
+    app.kubernetes.io/name: kubiko-dev
+    app.kubernetes.io/instance: kubiko-dev
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  secretStoreRef:
+    name: vault-cluster-store
+    kind: ClusterSecretStore
+  target:
+    name: kubiko-dev
+    creationPolicy: Owner
+    deletionPolicy: Retain
+  data:
+    - secretKey: BASIC_AUTH_USER
+      remoteRef:
+        key: "data/kubikodev"
+        property: "BASIC_AUTH_USER"
+    - secretKey: BASIC_AUTH_PASS
+      remoteRef:
+        key: "data/kubikodev"
+        property: "BASIC_AUTH_PASS"
+---
+# Source: kubiko-dev/templates/virtual-service.yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: kubiko-dev
+  namespace: kubiko-dev
+spec:
+  gateways:
+  - istio-system/kubikobot-wildcard-gateway
+  hosts:
+  - kubiko-dev
+  http:
+  - match:
+    - authority:
+        prefix: kubiko-dev
+      uri:
+        prefix: /
+    route:
+    - destination:
+        host: kubiko-dev
+        port:
+          number: 8080
+    timeout: 300s
