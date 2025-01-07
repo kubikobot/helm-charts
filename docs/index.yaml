@@ -3,7 +3,17 @@ entries:
   kubiko-dev:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-07T11:08:20.3388838Z"
+    created: "2025-01-07T11:11:37.625107233Z"
+    description: A Helm chart for Kubernetes
+    digest: c7bc189c047e61f577ebb8e0cf13ea8df91ece0a844c2586496398d1afaec8f8
+    name: kubiko-dev
+    type: application
+    urls:
+    - https://kubikobot.github.io/helm-charts/kubiko-dev-0.0.10.tgz
+    version: 0.0.10
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-01-07T11:11:37.62827898Z"
     description: A Helm chart for Kubernetes
     digest: c4779a270d8ae0e2fb2b284cd2517d402d19c8c5dff528986f8ade5197061946
     name: kubiko-dev
@@ -13,7 +23,7 @@ entries:
     version: 0.0.9
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-07T11:08:20.338382144Z"
+    created: "2025-01-07T11:11:37.627897958Z"
     description: A Helm chart for Kubernetes
     digest: e03957117def1fea27992d9e712c66a246499bb87b80f4c26446f5a78231dac1
     name: kubiko-dev
@@ -23,7 +33,7 @@ entries:
     version: 0.0.8
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-07T11:08:20.337858928Z"
+    created: "2025-01-07T11:11:37.627509422Z"
     description: A Helm chart for Kubernetes
     digest: 192d3afae688fec70665ec43d05aaa25c87d1789757682d1f04e1722500f9c2a
     name: kubiko-dev
@@ -33,7 +43,7 @@ entries:
     version: 0.0.7
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-07T11:08:20.336841321Z"
+    created: "2025-01-07T11:11:37.627145352Z"
     description: A Helm chart for Kubernetes
     digest: 6091ec417af164930b11adb40df97bf1a4cceb5b7f3067135a94da132b68ef9e
     name: kubiko-dev
@@ -43,7 +53,7 @@ entries:
     version: 0.0.6
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-07T11:08:20.33625677Z"
+    created: "2025-01-07T11:11:37.626744353Z"
     description: A Helm chart for Kubernetes
     digest: 9eb2817f239c58488bfbbce8bfb3258e65472419e3bedab00ef4d1a3966cc0af
     name: kubiko-dev
@@ -53,7 +63,7 @@ entries:
     version: 0.0.5
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-07T11:08:20.335840174Z"
+    created: "2025-01-07T11:11:37.626354073Z"
     description: A Helm chart for Kubernetes
     digest: 2e0fac05ed0c091cdb92f3fc79f2317afd5dee47d3e3e8d51aa8ed3e914bde63
     name: kubiko-dev
@@ -63,7 +73,7 @@ entries:
     version: 0.0.4
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-07T11:08:20.335254281Z"
+    created: "2025-01-07T11:11:37.625954156Z"
     description: A Helm chart for Kubernetes
     digest: 5fb19e7b93077cfe4045abda4fa576fa7f076b89d6f1df0c118a1489664d6bcd
     name: kubiko-dev
@@ -73,7 +83,7 @@ entries:
     version: 0.0.3
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-07T11:08:20.334837393Z"
+    created: "2025-01-07T11:11:37.625534392Z"
     description: A Helm chart for Kubernetes
     digest: 458bd60b0588c8a317982ab3a4efe9311e77ee432dcee428202ac06f020a5e8d
     name: kubiko-dev
@@ -84,7 +94,7 @@ entries:
   top-funny-news:
   - apiVersion: v2
     appVersion: 1.18.2
-    created: "2025-01-07T11:08:20.340269334Z"
+    created: "2025-01-07T11:11:37.630402618Z"
     description: A Helm chart for Kubernetes
     digest: c235233157542206b442803215978f4a46fe7c492b1a459b0b1355e2699628b1
     name: top-funny-news
@@ -94,7 +104,7 @@ entries:
     version: 0.1.11
   - apiVersion: v2
     appVersion: 1.18.2
-    created: "2025-01-07T11:08:20.339778589Z"
+    created: "2025-01-07T11:11:37.62988995Z"
     description: A Helm chart for Kubernetes
     digest: e1ed15a9b08791f0362a8bc47189622bff88cf4f04acc292da622b796bd7effc
     name: top-funny-news
@@ -104,7 +114,7 @@ entries:
     version: 0.1.10
   - apiVersion: v2
     appVersion: 1.18.2
-    created: "2025-01-07T11:08:20.342991141Z"
+    created: "2025-01-07T11:11:37.633132409Z"
     description: A Helm chart for Kubernetes
     digest: 2337baf2c55dcddeea1aece1f916f32c9773dba99c3c5e577da4fffd9fe838d3
     name: top-funny-news
@@ -114,7 +124,7 @@ entries:
     version: 0.1.9
   - apiVersion: v2
     appVersion: 1.18.2
-    created: "2025-01-07T11:08:20.342538246Z"
+    created: "2025-01-07T11:11:37.632658393Z"
     description: A Helm chart for Kubernetes
     digest: 161409fbc7533469c067068af221fcee8cc0863324b242236aa1b1a276de597d
     name: top-funny-news
@@ -124,7 +134,7 @@ entries:
     version: 0.1.8
   - apiVersion: v2
     appVersion: 1.18.2
-    created: "2025-01-07T11:08:20.342061898Z"
+    created: "2025-01-07T11:11:37.632212089Z"
     description: A Helm chart for Kubernetes
     digest: 6fcab99a59d7431b8edcdcec4975c233516193006e5d4d8d3381eb1db73e2238
     name: top-funny-news
@@ -134,7 +144,7 @@ entries:
     version: 0.1.7
   - apiVersion: v2
     appVersion: 1.18.2
-    created: "2025-01-07T11:08:20.341622989Z"
+    created: "2025-01-07T11:11:37.631659437Z"
     description: A Helm chart for Kubernetes
     digest: 37e4c2615f4c22147683ed7c20c16d22b6dc7096bcbbd759cca6d1eaaf51305e
     name: top-funny-news
@@ -144,7 +154,7 @@ entries:
     version: 0.1.6
   - apiVersion: v2
     appVersion: 1.18.2
-    created: "2025-01-07T11:08:20.34116233Z"
+    created: "2025-01-07T11:11:37.631255612Z"
     description: A Helm chart for Kubernetes
     digest: 7025f22645efb4258af95fbee0a5f2220310060d72f68bc03e7c30738f5bccf3
     name: top-funny-news
@@ -154,7 +164,7 @@ entries:
     version: 0.1.5
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-01-07T11:08:20.340697763Z"
+    created: "2025-01-07T11:11:37.63083743Z"
     description: A Helm chart for Kubernetes
     digest: 6adabfa09fffc64d31feb12be8b7a2235ae5e623cfb692cf711412b3a9220715
     name: top-funny-news
@@ -164,7 +174,7 @@ entries:
     version: 0.1.4
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-01-07T11:08:20.3393075Z"
+    created: "2025-01-07T11:11:37.62863194Z"
     description: A Helm chart for Kubernetes
     digest: 1c3dd2a61a018f2326739d61799242489fefcfaad3b7858eeb2535fb400897de
     name: top-funny-news
@@ -172,4 +182,4 @@ entries:
     urls:
     - https://kubikobot.github.io/helm-charts/top-funny-news-0.1.0.tgz
     version: 0.1.0
-generated: "2025-01-07T11:08:20.334244307Z"
+generated: "2025-01-07T11:11:37.624502573Z"
