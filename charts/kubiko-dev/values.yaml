@@ -121,3 +121,4 @@ tolerations: []
 affinity: {}
 apiEndpoint: https://kubiko.dev/api/
 secretName: kubiko-dev
+configMapName: kubiko-dev
