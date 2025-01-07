@@ -1,38 +1,38 @@
----
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: {{ include "chart.fullname" . }}
-  namespace: {{ .Values.namespace | default "default" }}
-  labels:
-    {{- include "chart.labels" . | nindent 4 }}
-spec:
-  schedule: "30 11 * * *" # Cron schedule for 11:30 AM every day
-  jobTemplate:
-    spec:
-      template:
-        metadata:
-          labels:
-            {{- include "chart.labels" . | nindent 8 }}
-        spec:
-          containers:
-          - name: {{ .Chart.Name }}
-            image: curlimages/curl:latest # Use an official curl image
-            imagePullPolicy: IfNotPresent
-            command:
-              - /bin/sh
-              - -c
-              - |
-                curl -u "$BASIC_AUTH_USER:$BASIC_AUTH_PASS" {{ .Values.apiEndpoint }}
-            env:
-              - name: BASIC_AUTH_USER
-                valueFrom:
-                  secretKeyRef:
-                    name: {{ .Values.secretName}} # Reference the secret created by ExternalSecret
-                    key: BASIC_AUTH_USER
-              - name: BASIC_AUTH_PASS
-                valueFrom:
-                  secretKeyRef:
-                    name: {{ .Values.secretName }} # Reference the secret created by ExternalSecret
-                    key: BASIC_AUTH_PASS
-          restartPolicy: OnFailure
+# ---
+# apiVersion: batch/v1
+# kind: CronJob
+# metadata:
+#   name: {{ include "chart.fullname" . }}
+#   namespace: {{ .Values.namespace | default "default" }}
+#   labels:
+#     {{- include "chart.labels" . | nindent 4 }}
+# spec:
+#   schedule: "30 11 * * *" # Cron schedule for 11:30 AM every day
+#   jobTemplate:
+#     spec:
+#       template:
+#         metadata:
+#           labels:
+#             {{- include "chart.labels" . | nindent 8 }}
+#         spec:
+#           containers:
+#           - name: {{ .Chart.Name }}
+#             image: curlimages/curl:latest # Use an official curl image
+#             imagePullPolicy: IfNotPresent
+#             command:
+#               - /bin/sh
+#               - -c
+#               - |
+#                 curl -u "$BASIC_AUTH_USER:$BASIC_AUTH_PASS" {{ .Values.apiEndpoint }}
+#             env:
+#               - name: BASIC_AUTH_USER
+#                 valueFrom:
+#                   secretKeyRef:
+#                     name: {{ .Values.secretName}} # Reference the secret created by ExternalSecret
+#                     key: BASIC_AUTH_USER
+#               - name: BASIC_AUTH_PASS
+#                 valueFrom:
+#                   secretKeyRef:
+#                     name: {{ .Values.secretName }} # Reference the secret created by ExternalSecret
+#                     key: BASIC_AUTH_PASS
+#           restartPolicy: OnFailure
