@@ -62,12 +62,12 @@ virtualService:
   name: kubiko-dev
   gateway: istio-system/kubikobot-wildcard-gateway
   hosts:
-    - kubiko-dev
+    - kubiko.dev
   match:
-    authority: kubiko-dev
+    authority: kubiko.dev
     uri: /
   destination:
-    host: kubiko-dev
+    host: kubiko.dev
     port: 8080
   timeout: 300s
 
