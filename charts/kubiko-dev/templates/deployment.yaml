@@ -58,6 +58,21 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.secretName }}
                   key: BASIC_AUTH_PASS
+            - name: NEXT_PUBLIC_POSTHOG_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName }}
+                  key: NEXT_PUBLIC_POSTHOG_KEY
+            - name: NEXT_PUBLIC_POSTHOG_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName }}
+                  key: NEXT_PUBLIC_POSTHOG_HOST
+            - name: NEXT_PUBLIC_ENABLE_ADS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configMapName }}
+                  key: NEXT_PUBLIC_ENABLE_ADS
           {{- with .Values.volumeMounts }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}

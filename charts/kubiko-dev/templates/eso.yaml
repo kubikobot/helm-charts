@@ -18,9 +18,17 @@ spec:
   data:
     - secretKey: BASIC_AUTH_USER
       remoteRef:
-        key: "data/kubikodev"
+        key: "data/kubiko-dev"
         property: "BASIC_AUTH_USER"
     - secretKey: BASIC_AUTH_PASS
       remoteRef:
-        key: "data/kubikodev"
+        key: "data/kubiko-dev"
         property: "BASIC_AUTH_PASS"
+    - secretKey: NEXT_PUBLIC_POSTHOG_KEY
+      remoteRef:
+        key: "data/kubiko-dev"
+        property: "NEXT_PUBLIC_POSTHOG_KEY"
+    - secretKey: NEXT_PUBLIC_POSTHOG_HOST
+      remoteRef:
+        key: "data/kubiko-dev"
+        property: "NEXT_PUBLIC_POSTHOG_HOST"
