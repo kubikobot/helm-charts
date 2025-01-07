@@ -53,6 +53,10 @@ helm repo update
   - Description: A Helm chart for Kubernetes
   - Install: `helm install <release-name> kubikobot/kubiko-dev-0.1.1 --version 0.1.1`
 
+- **kubiko-dev-0.1.2** (version 0.1.2)
+  - Description: A Helm chart for Kubernetes
+  - Install: `helm install <release-name> kubikobot/kubiko-dev-0.1.2 --version 0.1.2`
+
 - **top-funny-news-0.1.0** (version 0.1.0)
   - Description: A Helm chart for Kubernetes
   - Install: `helm install <release-name> kubikobot/top-funny-news-0.1.0 --version 0.1.0`
